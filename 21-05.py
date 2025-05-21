@@ -29,7 +29,7 @@ class cat:
 
 Mohammed = dog("malicious","brown", 10,12,15)
 Didi = cat("puple","brown", 25,22,30)
-"""
+
 class BankAccount:
     def __init__(self, owner, balance=0):
         self.owner = owner          # public
@@ -60,3 +60,50 @@ account.check_funds()
 print(account.owner)      # OK (public)
 print(account._balance)   # OK mais pas recommandé (protected)
 
+"""
+
+from abc import ABC, abstractmethod
+
+
+class Animal(ABC):
+    def __init__(self, species):
+        self.species = species
+
+    @abstractmethod
+    def move(self):
+        pass
+
+    @abstractmethod
+    def eat(self):
+        pass
+
+
+class Mammal(Animal):
+    def __init__(self, species, has_fur):
+        super().__init__(species)
+        self.has_fur = has_fur
+
+    def move(self):
+        print("The mammal moves on land.")
+
+
+class Platypus(Mammal):
+    def __init__(self, name):
+        super().__init__(species="Platypus", has_fur=True)
+        self.name = name
+        self.has_bill = True
+        self.can_swim = True
+        self.lays_eggs = True
+
+    def eat(self):
+        print(f"{self.name} eats insects and small aquatic animals.")
+
+    def swim(self):
+        print(f"{self.name} is swimming.")
+
+
+p = Platypus("Teddy")
+p.move()
+p.eat()
+p.swim()
+print(f"Fur: {p.has_fur}, Bill: {p.has_bill}, Lays eggs: {p.lays_eggs}")
